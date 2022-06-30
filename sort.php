@@ -1,30 +1,58 @@
 <?php
-function bubbleSort($mang) {
-    $number = count($mang);
-    for($i = 0; $i < $number - 1; $i++) {
-        for($j = $i + 1; $j < $number; $j++) {
-            if($mang[$j] < $mang[$i]) {
-                $tmp = $mang[$j];
-                $mang[$j] = $mang[$i];
-                $mang[$i] = $tmp;
+
+declare(strict_types=1);
+
+class Sort {
+    public function bubbleSort(array $array): array {
+        $number = count($array);
+        for($i = 0; $i < $number - 1; $i++) {
+            for($j = $i + 1; $j < $number; $j++) {
+                if($array[$j] < $array[$i]) {
+                    $tmp = $array[$j];
+                    $array[$j] = $array[$i];
+                    $array[$i] = $tmp;
+                }
             }
         }
+        return $array;
     }
-    return $mang;
+
+    public function selectionSort(array $array): array {
+        $number = count($array);
+        for ($i = 0; $i < $number; $i++) {
+            $min = $i;
+            for ($j = $i + 1; $j < $number; $j++) {
+                if ($array[$j] < $array[$min]) {
+                    $min = $j;
+                }
+            }
+
+            if ($i !== $min) {
+                $tmp = $array[$i];
+                $array[$i] = $array[$min];
+                $array[$min] = $tmp;
+            }
+        }
+        return $array;
+    }
+
+    public function insertionSort(array $array): array
+    {
+        foreach ($array as $i => $value) {
+            for ($j = $i; $j > 0 && $array[$j - 1] > $value; --$j) {
+                $array[$j] = $array[$j - 1];
+            }
+            $array[$j] = $value;
+        }
+
+        return $array;
+    }
 }
 
-function hienThi($mang)
-{
-    $sophantu = count($mang);
-    for ($i = 0; $i < $sophantu; $i++){
-        echo $mang[$i] . ' ';
-    }
+$sort = new Sort();
+$array = [1, 10, 5, -10, -20, 5];
+$newArray = $sort->insertionSort($array);
+
+for($i = 0; $i < count($newArray); $i++) {
+    echo $newArray[$i] . " ";
 }
-
-$mang = [1, 10, -5, 8, 2, 0, 10];
-
-$mang = bubbleSort($mang);
-hienThi($mang);
-
-
-?>
