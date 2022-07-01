@@ -18,7 +18,6 @@ final class MaxChar
 
         $max = '';
         $freqMax = 0;
-
         foreach ($map as $char => $freq) {
             if ($freq <= $freqMax) {
                 continue;
